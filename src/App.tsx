@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+
+import "./App.css";
+import { hourSelector, minuteState } from "./atoms";
 
 function App() {
+  const [minutes, setMinutes] = useRecoilState(minuteState);
+  const [hours, setHours] = useRecoilState(hourSelector);
+  const onMinuteChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setMinutes(+event.currentTarget.value);
+  };
+
+  const onHourChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setHours(+event.currentTarget.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input
+        value={minutes}
+        onChange={onMinuteChange}
+        type="number"
+        placeholder="Minutes"
+      ></input>
+      <input
+        value={hours}
+        onChange={onHourChange}
+        type="number"
+        placeholder="Hours"
+      ></input>
     </div>
   );
 }
